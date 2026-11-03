@@ -104,7 +104,7 @@ function mk(){
   const k=rd,RDv=Math.max(.2,.62-k*.045),wk=Math.max(.07,.14-k*.008);
   const nc=Math.min(4,2+(k>=3)+(k>=6)+(k>=8));
   const all=[0,1,2,3,4,5,6].sort(()=>Math.random()-.5),cand=all.slice(0,nc),real=cand[rnd(nc)];
-  const tUp=1.5+Math.random()*1.3,tFree=tUp+.5,nr=Math.min(3,1+(k>=3)+(k>=6)),riv=[];
+  const tUp=1.9+Math.random()*1.3,tFree=tUp+.5,nr=Math.min(3,1+(k>=3)+(k>=6)),riv=[];
   for(let i=0;i<nr;i++){
     const x=k>=4&&Math.random()<.6?cand[rnd(nc)]:rnd(7),d=Math.abs(x-real);
     riv.push({x,dur:Math.max(.2,d*wk),e:RV[i%3],ts:tFree+RDv+(Math.random()-.5)*.14+d*wk*.5});
@@ -202,7 +202,7 @@ function draw(now){
     }else if(isCand&&playing&&t>=.5&&t<R.tUp)jx=Math.sin(now/45)*2.5;
     if(e)ch(e,x+jx,y,ph0,a);
     if(fx)em(fx,x+s*.32,cy-ph0*.9,s*.5);
-    if(isReal&&playing&&!R.res&&t>=R.tUp-.7&&t<R.tFree)em('🎒',x+s*.3,cy-ph0*.95,s*.5);
+    if(isReal&&playing&&!R.res&&t>=R.tUp-1.2&&t<R.tFree){const bb=Math.sin(now/110)*4;em('🎒',x+s*.28,cy-ph0*1.25+bb,s*.85);em('❗',x-s*.3,cy-ph0*1.35+bb,s*.45)}
     else if(isCand&&playing&&t>=.5&&t<R.tUp)em('💭',x+s*.32,cy-ph0*.95,s*.42);
   }
   g.fillStyle='#1d6a45';g.fillRect(W*.04,H*.46,W*.92,H*.05);
@@ -253,7 +253,7 @@ let last=0;
 function loop(now){const dt=Math.min(.033,(now-last)/1000||0);last=now;upd(dt);draw(now);requestAnimationFrame(loop)}
 
 mk();ph='title';
-ov('지하철 자리 쟁탈전','송편 막내가 부장님·상무님·AI보다 먼저 앉아야 해요!\n좌우로 움직여 곧 내릴 승객 앞에 서세요\n🎒 가방을 챙기면 곧 내려요!\n자리가 비는 순간 ‘앉기!’\n너무 일찍 누르면 민망, 늦으면 뺏겨요\n하트 3개로 10개 역을 버텨 보세요'+(best?`\n\n내 베스트 ${best}점`:''),[['출발',startGame]]);
+ov('지하철 자리 쟁탈전','송편 막내가 부장님·상무님·AI보다 먼저 앉아야 해요!\n좌우로 움직여 곧 내릴 승객 앞에 서세요\n💭 말풍선은 후보일 뿐, 🎒 가방을 챙기면 진짜 내려요!\n자리가 비는 순간 ‘앉기!’\n너무 일찍 누르면 민망, 늦으면 뺏겨요\n하트 3개로 10개 역을 버텨 보세요'+(best?`\n\n내 베스트 ${best}점`:''),[['출발',startGame]]);
 requestAnimationFrame(loop);
 </script>
 </body>
